@@ -1,0 +1,30 @@
+{
+  "name": "mediawiki-to-adoc",
+  "version": "0.0.1",
+  "description": "Fetch MediaWiki content and convert them to AsciiDoc",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zbynek/mediawiki-to-adoc.git"
+  },
+  "keywords": [
+    "mediawiki"
+  ],
+  "author": "Zbynek",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/zbynek/mediawiki-to-adoc/issues"
+  },
+  "homepage": "https://github.com/zbynek/mediawiki-to-adoc#readme",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "cheerio": "^1.0.0-rc.12"
+  },
+  "devDependencies": {
+    "eslint": "^8.56.0",
+    "eslint-config-google": "^0.14.0"
+  }
+}
