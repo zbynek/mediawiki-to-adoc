@@ -1,46 +1,24 @@
-Comandi
-Comandi 3D
-Comandi Algebra
-Comandi Coniche
-Comandi Diagrammi
-Comandi Finanziari
-Comandi Foglio di Calcolo
-Comandi Funzioni e analisi
-Comandi GeoGebra
-Comandi Geometria
-Comandi Liste
-Comandi Logica
-Comandi Matematica discreta
-Comandi Ottimizzazione
-Comandi Probabilità
-Comandi Scripting
-Comandi specifici CAS
-Comandi Statistica
-Comandi Testo
-Comandi Trasformazioni
-Comandi Vettori e matrici
-Comando AggiornaCostruzione
-Comando Aggiungi
-Comando Altezza
-Comando AnalizzaFunzione
-Comando AnalizzaNumero
-Comando AngoliInterni
-Comando Angolo
-Comando ANOVA
-Comando ApplicaMatrice
-Comando Arco
-Comando ArcoCircolare
-Comando ArcoTrePunti
-Comando Area
-Comando ArrestaAcquisizione
-Comando Asintoto
-Comando AsseMaggiore
-Comando AsseMinore
-Comando AsseSegmento
-Comando Assi
-Comando Assumi
-Comando Autovalori
-Comando Autovettori
-Comando AvviaAcquisizione
-Comando AvviaAnimazione
-Comando AvviaRegistrazione
+AffineRatio_Command
+Algebra_Commands
+AngleBisector_Command
+Angle_Command
+ANOVA_Command
+Append_Command
+ApplyMatrix_Command
+Arc_Command
+Area_Command
+AreCollinear_Command
+AreConcurrent_Command
+AreConcyclic_Command
+AreCongruent_Command
+AreEqual_Command
+AreParallel_Command
+ArePerpendicular_Command
+Assume_Command
+Asymptote_Command
+AttachCopyToView_Command
+Axes_Command
+AxisStepX_Command
+AxisStepY_Command
+Geometry_Commands
+Integral_Command
