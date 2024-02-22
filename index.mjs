@@ -9,9 +9,10 @@ import {mkdirp} from 'mkdirp';
 const fixAdmonitions = ($, selector, adocName) => {
   $(selector).each(function() {
     const block = $(this);
-    const heading = /\*(Note|Example):\s*\*/;
-    const content = block.html().replace(heading, "");
-    block.html(`<div>[${adocName}]</div><div>====</div>${content}<div>====</div>`);
+    const heading = /\*(Note|Example):\*\s*/g;
+    $("b:contains(\"Note:\")").remove();
+    $("b:contains(\"Example:\")").remove();
+    block.html(`<div>[${adocName}]</div><div>====</div>${block.html()}<div>====</div>`);
     const parent = block.parent();
     if (parent[0].name == 'dd') {
       parent.parent().after(block);
