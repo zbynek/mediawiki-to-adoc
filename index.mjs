@@ -40,6 +40,9 @@ const htmlTransforms = [
   ($) => $('[data-latex]').each(function() {
     $(this).text(`stem:[${$(this).text()}]`);
   }),
+  ($) => $('code').each(function() {
+      $(this).text('++' + $(this).text() + '++');
+  }),
   ($) => $('h2 span, h3 span').each(function() {
       $(this).text() || $(this).remove();
   }),
@@ -85,7 +88,7 @@ const configIt = {
   linkPrefix: '/it',
   headings: ['Note', 'Esempio'],
   outputDir: '../manual/it/modules/ROOT',
-  pages: ['Manuale']
+  pages: ['Assegnare_un_nome_agli_oggetti', 'Comandi', 'Etichette_e_legende', 'Comando_Esegui', 'Comando_Singola']
 };
 
 const configEn = {
@@ -100,7 +103,7 @@ const configEn = {
    linkPrefix: '/en',
    headings: ['Note', 'Example'],
    outputDir: '../manual/en/modules/ROOT',
-   pages: ['Input_Bar'],
+   pages: ['Eliminate_Command'],
 };
 const config = process.argv[2] == 'it' ? configIt : configEn;
 const categories = config.categories;
