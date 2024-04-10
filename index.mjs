@@ -5,14 +5,17 @@ import {exec} from 'child_process';
 import cheerio from 'cheerio';
 import * as os from 'os';
 import {mkdirp} from 'mkdirp';
+import axiosRetry from 'axios-retry';
+
+axiosRetry(axios, { retries: 3 });
 
 const fixAdmonitions = ($, selector, adocName, headings) => {
   $(selector).each(function() {
     const block = $(this);
     for (const heading of headings) {
-        $(`b:contains(\"${heading}:\")`).remove();
+      $(`b:contains(\"${heading}:\")`).remove();
     }
-    block.html(`<div>[${adocName}]</div><div>====</div>${block.html()}<div>====</div>`);
+    block.html(`<div>[${adocName}]</div>====<div>${block.html()}</div>====\n`);
     const parent = block.parent();
     if (parent[0].name == 'dd') {
       parent.parent().after(block);
@@ -21,12 +24,12 @@ const fixAdmonitions = ($, selector, adocName, headings) => {
 };
 
 const axiosGet = async (url, options) => {
-    try {
-        return await axios.get(url, options);
-    } catch (e) {
-        console.log(`Could not fetch ${url}: ${e}`);
-    }
-}
+  try {
+    return await axios.get(url, options);
+  } catch (e) {
+    console.log(`Could not fetch ${url}: ${e}`);
+  }
+};
 
 const downloadImage = async (url, filename) => {
   const response = await axiosGet(url, {responseType: 'arraybuffer'});
@@ -35,13 +38,13 @@ const downloadImage = async (url, filename) => {
 
 const htmlTransforms = [
   ($) => $('.infobox,.mw-editsection,br').remove(),
-  ($) => $('.toc').replaceWith("<div>:toc:</div>"),
+  ($) => $('.toc').replaceWith('<div>:toc:</div>'),
   ($) => $('.block-contents,.block-content,.mw-headline').attr('class', ''),
   ($) => $('[data-latex]').each(function() {
     $(this).text(`stem:[${$(this).text()}]`);
   }),
   ($) => $('h2 span, h3 span').each(function() {
-      $(this).text() || $(this).remove();
+    $(this).text() || $(this).remove();
   }),
   ($, config) => fixAdmonitions($, '.block-note', 'NOTE', config.headings),
   ($, config) => fixAdmonitions($, '.example', 'EXAMPLE', config.headings),
@@ -85,22 +88,22 @@ const configIt = {
   linkPrefix: '/it',
   headings: ['Note', 'Esempio'],
   outputDir: '../manual/it/modules/ROOT',
-  pages: ['Manuale']
+  importCategories: ['Category:Comandi', 'Category:Strumenti'],
 };
 
 const configEn = {
-    categories: [
-      ['commands', /.*_Command$/],
-      ['commands', /.*_Commands$/],
-      ['tools', /.*_Tool$/],
-      ['tools', /.*_Tools$/],
-   ],
-   api: 'https://wiki.geogebra.org/s/en/api.php',
-   baseUrl: 'https://wiki.geogebra.org',
-   linkPrefix: '/en',
-   headings: ['Note', 'Example'],
-   outputDir: '../manual/en/modules/ROOT',
-   pages: ['Input_Bar'],
+  categories: [
+    ['commands', /.*_Command$/],
+    ['commands', /.*_Commands$/],
+    ['tools', /.*_Tool$/],
+    ['tools', /.*_Tools$/],
+  ],
+  api: 'https://wiki.geogebra.org/s/en/api.php',
+  baseUrl: 'https://wiki.geogebra.org',
+  linkPrefix: '/en',
+  headings: ['Note', 'Example'],
+  outputDir: '../manual/en/modules/ROOT',
+  importCategories: ['Category:Commands', 'Category:Tools'],
 };
 const config = process.argv[2] == 'it' ? configIt : configEn;
 const categories = config.categories;
@@ -117,7 +120,22 @@ mkdirp(`${outputDir}/pages/`);
 categories.forEach((cat) => mkdirp(`${outputDir}/pages/${cat[0]}`));
 mkdirp(`${outputDir}/assets/images/`);
 
-const pages = config.pages;
+const pages = config.pages || [];
+for (const cat of config.importCategories) {
+  let continuation = '';
+  do {
+    const pageList = (await axiosGet(`${api}?action=query&list=categorymembers&cmtitle=` +
+    `${cat}&cmlimit=500&format=json${continuation}`)).data;
+    continuation = '';
+    for (const [key, val] of Object.entries(pageList['continue'] || {})) {
+      continuation += `&${key}=${val}`;
+    }
+    for (const page of pageList.query.categorymembers) {
+      pages.push(page.title.replaceAll(' ', '_'));
+    }
+  } while (continuation);
+}
+config.pages;
 let processed = 0;
 while (processed < pages.length) {
   const page = pages[processed];
@@ -151,8 +169,11 @@ while (processed < pages.length) {
   console.log('  Converting');
   exec(`pandoc -f html --columns=120 -t asciidoc ${outHtml}`, (err, adocContent, stderr) => {
     console.log(stderr.trim());
+    const cleanContent = adocContent.replaceAll('link:/', 'xref:/')
+        .replaceAll('  +\n\n[', '\n[')
+        .replace(/\[(\w+)\]\n\n==/g, '[$1]\n==');
     fs.writeFileSync(`${outputDir}/pages/${outputCategoryDir}/${out}.adoc`,
-        `= ${page.replaceAll('_', ' ')}\n\n${adocContent}`.replaceAll('link:/', 'xref:/'));
+        `= ${page.replaceAll('_', ' ')}\n\n${cleanContent}`);
     fs.unlinkSync(outHtml);
   });
 }
