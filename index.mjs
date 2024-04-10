@@ -43,6 +43,9 @@ const htmlTransforms = [
   ($) => $('[data-latex]').each(function() {
     $(this).text(`stem:[${$(this).text()}]`);
   }),
+  ($) => $('code').each(function() {
+      $(this).text('++' + $(this).text() + '++');
+  }),
   ($) => $('h2 span, h3 span').each(function() {
     $(this).text() || $(this).remove();
   }),
@@ -105,6 +108,8 @@ const configEn = {
   outputDir: '../manual/en/modules/ROOT',
   importCategories: ['Category:Commands', 'Category:Tools'],
 };
+
+
 const config = process.argv[2] == 'it' ? configIt : configEn;
 const categories = config.categories;
 const baseUrl = config.baseUrl;
