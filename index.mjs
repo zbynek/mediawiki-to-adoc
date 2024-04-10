@@ -109,9 +109,25 @@ const configEn = {
   importCategories: ['Category:Commands', 'Category:Tools'],
 };
 
+const configRef = {
+  api: 'https://wiki.geogebra.org/s/en/api.php',
+  baseUrl: 'https://wiki.geogebra.org',
+  linkPrefix: '/en',
+  headings: ['Note', 'Example'],
+  outputDir: '../integration/reference/modules/ROOT',
+  pages: [
+  //'Reference:GeoGebra_App_Parameters', 'Reference:GeoGebra_Apps_Embedding',
+  //'Reference:GeoGebra_Apps_API', 'Reference:Toolbar',
+  //'Reference:File_Format',
+  'Reference:XML_tags_in_geogebra.xml',
+  'Reference:XML_tags_in_geogebra_macro.xml',
+  //'Reference:Common_XML_tags_and_types'
+  ],
+};
 
-const config = process.argv[2] == 'it' ? configIt : configEn;
-const categories = config.categories;
+const config =  process.argv[2] == 'ref' ? configRef
+: (process.argv[2] == 'it' ? configIt : configEn);
+const categories = config.categories || [];
 const baseUrl = config.baseUrl;
 const api = config.api;
 const linkPrefix = config.linkPrefix;
@@ -126,7 +142,7 @@ categories.forEach((cat) => mkdirp(`${outputDir}/pages/${cat[0]}`));
 mkdirp(`${outputDir}/assets/images/`);
 
 const pages = config.pages || [];
-for (const cat of config.importCategories) {
+for (const cat of config.importCategories || []) {
   let continuation = '';
   do {
     const pageList = (await axiosGet(`${api}?action=query&list=categorymembers&cmtitle=` +
