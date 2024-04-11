@@ -46,8 +46,9 @@ const htmlTransforms = [
   ($) => $('code').each(function() {
       $(this).text('++' + $(this).text() + '++');
   }),
-  ($) => $('h2 span, h3 span').each(function() {
+  ($) => $('h2 span, h3 span, h4 span').each(function() {
     $(this).text() || $(this).remove();
+    $(this).attr('id', '');
   }),
   ($, config) => fixAdmonitions($, '.block-note', 'NOTE', config.headings),
   ($, config) => fixAdmonitions($, '.example', 'EXAMPLE', config.headings),
@@ -119,9 +120,13 @@ const configRef = {
   //'Reference:GeoGebra_App_Parameters', 'Reference:GeoGebra_Apps_Embedding',
   //'Reference:GeoGebra_Apps_API', 'Reference:Toolbar',
   //'Reference:File_Format',
-  'Reference:XML_tags_in_geogebra.xml',
-  'Reference:XML_tags_in_geogebra_macro.xml',
+  //'Reference:XML_tags_in_geogebra.xml',
+  //'Reference:XML_tags_in_geogebra_macro.xml',
   //'Reference:Common_XML_tags_and_types'
+  //'Reference:Command_Line_Arguments',
+  //'Reference:GeoGebra_Installation',
+  //'Reference:GeoGebra_Mass_Installation',
+  'Reference:XML_Glossary'
   ],
 };
 
