@@ -7,7 +7,7 @@ import * as os from 'os';
 import {mkdirp} from 'mkdirp';
 import axiosRetry from 'axios-retry';
 
-axiosRetry(axios, { retries: 3 });
+axiosRetry(axios, {retries: 3});
 
 const fixAdmonitions = ($, selector, adocName, headings) => {
   $(selector).each(function() {
@@ -44,11 +44,16 @@ const htmlTransforms = [
     $(this).text(`stem:[${$(this).text()}]`);
   }),
   ($) => $('code').each(function() {
-      $(this).text('++' + $(this).text() + '++');
+    $(this).text('++' + $(this).text() + '++');
   }),
   ($) => $('h2 span, h3 span, h4 span').each(function() {
     $(this).text() || $(this).remove();
     $(this).attr('id', '');
+  }),
+  ($) => $('a img').each(function() {
+    if ($(this).parent().attr('href').includes('File:')) {
+      $(this).parent().replaceWith($(this));
+    }
   }),
   ($, config) => fixAdmonitions($, '.block-note', 'NOTE', config.headings),
   ($, config) => fixAdmonitions($, '.example', 'EXAMPLE', config.headings),
@@ -63,6 +68,16 @@ const getCategoryPrefix = (page, categories) => {
   return '';
 };
 
+const simplifyName = (page, categories) => {
+  const specialChars = /[-\/,_\s.]+/g;
+  for (const category of categories) {
+    if (page.match(category[1])) {
+      return page.replace(category[1], '$1').replace(specialChars, '_');
+    }
+  }
+  return page.replace(specialChars, '_');
+};
+
 const resolveLink = (link, sourcePage, linkPrefix, categories, pages) => {
   if (!link || link.includes('//')) {
     console.log(`  Not an internal link: '${link}'`);
@@ -75,17 +90,17 @@ const resolveLink = (link, sourcePage, linkPrefix, categories, pages) => {
     pages.push(page, '');
   }
   const prefix = getCategoryPrefix(page, categories);
-  const cleanPage = page.replaceAll(/[-\/,_\s.]+/g, '_');
+  const cleanPage = simplifyName(page, categories);
   const absLink = '/' + (prefix ? prefix + '/' + cleanPage : cleanPage) + '.adoc';
   return absLink;
 };
 
 
 const configIt = {
-  categories: [['commands', /Comando_.*/],
-    ['commands', /Comandi_.*/],
-    ['tools', /Strumento_.*/],
-    ['tools', /Strumenti_.*/],
+  categories: [['commands', /^Comando_(.*)$/],
+    ['commands', /^(Comandi_.*)$/],
+    ['tools', /^Strumento_(.*)$/],
+    ['tools', /^(Strumenti_.*)$/],
   ],
   api: 'https://wiki.geogebra.org/s/it/api.php',
   baseUrl: 'https://wiki.geogebra.org',
@@ -97,10 +112,10 @@ const configIt = {
 
 const configEn = {
   categories: [
-    ['commands', /.*_Command$/],
-    ['commands', /.*_Commands$/],
-    ['tools', /.*_Tool$/],
-    ['tools', /.*_Tools$/],
+    ['commands', /^(.*)_Command$/],
+    ['commands', /^(.*_Commands)$/],
+    ['tools', /^(.*)_Tool$/],
+    ['tools', /(.*_Tools)$/],
   ],
   api: 'https://wiki.geogebra.org/s/en/api.php',
   baseUrl: 'https://wiki.geogebra.org',
@@ -117,21 +132,21 @@ const configRef = {
   headings: ['Note', 'Example'],
   outputDir: '../integration/reference/modules/ROOT',
   pages: [
-  //'Reference:GeoGebra_App_Parameters', 'Reference:GeoGebra_Apps_Embedding',
-  //'Reference:GeoGebra_Apps_API', 'Reference:Toolbar',
-  //'Reference:File_Format',
-  //'Reference:XML_tags_in_geogebra.xml',
-  //'Reference:XML_tags_in_geogebra_macro.xml',
-  //'Reference:Common_XML_tags_and_types'
-  //'Reference:Command_Line_Arguments',
-  //'Reference:GeoGebra_Installation',
-  //'Reference:GeoGebra_Mass_Installation',
-  'Reference:XML_Glossary'
+  // 'Reference:GeoGebra_App_Parameters', 'Reference:GeoGebra_Apps_Embedding',
+  // 'Reference:GeoGebra_Apps_API', 'Reference:Toolbar',
+  // 'Reference:File_Format',
+  // 'Reference:XML_tags_in_geogebra.xml',
+  // 'Reference:XML_tags_in_geogebra_macro.xml',
+  // 'Reference:Common_XML_tags_and_types'
+  // 'Reference:Command_Line_Arguments',
+  // 'Reference:GeoGebra_Installation',
+  // 'Reference:GeoGebra_Mass_Installation',
+    'Reference:XML_Glossary',
   ],
 };
 
-const config =  process.argv[2] == 'ref' ? configRef
-: (process.argv[2] == 'it' ? configIt : configEn);
+const config = process.argv[2] == 'ref' ? configRef :
+(process.argv[2] == 'it' ? configIt : configEn);
 const categories = config.categories || [];
 const baseUrl = config.baseUrl;
 const api = config.api;
@@ -178,7 +193,7 @@ while (processed < pages.length) {
     continue;
   }
   const content = parsed.text['*'];
-  const out = page.trim().replace(/[-\/,_\s.]+/g, '_');
+  const out = simplifyName(page.trim(), categories);
   const outHtml = `${os.tmpdir()}/${out}.html`;
   const $ = cheerio.load(content);
   htmlTransforms.forEach((fn) => fn($, config));
