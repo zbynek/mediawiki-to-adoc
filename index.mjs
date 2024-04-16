@@ -141,7 +141,8 @@ const configRef = {
   // 'Reference:Command_Line_Arguments',
   // 'Reference:GeoGebra_Installation',
   // 'Reference:GeoGebra_Mass_Installation',
-    'Reference:XML_Glossary',
+  // 'Reference:XML_Glossary',
+  'Reference:Material_Embedding_(Iframe)'
   ],
 };
 
@@ -208,7 +209,7 @@ while (processed < pages.length) {
   });
   fs.writeFileSync(outHtml, $.html());
   console.log('  Converting');
-  exec(`pandoc -f html --columns=120 -t asciidoc ${outHtml}`, (err, adocContent, stderr) => {
+  exec(`pandoc -f html --columns=120 -t asciidoc '${outHtml}'`, (err, adocContent, stderr) => {
     console.log(stderr.trim());
     const cleanContent = adocContent.replaceAll('link:/', 'xref:/')
         .replaceAll('  +\n\n[', '\n[')
