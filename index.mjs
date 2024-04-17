@@ -6,6 +6,7 @@ import cheerio from 'cheerio';
 import * as os from 'os';
 import {mkdirp} from 'mkdirp';
 import axiosRetry from 'axios-retry';
+const interwiki = JSON.parse(fs.readFileSync('./interwiki.json'));
 
 axiosRetry(axios, {retries: 3});
 
@@ -62,7 +63,7 @@ const htmlTransforms = [
 const getCategoryPrefix = (page, categories) => {
   for (const category of categories) {
     if (page.match(category[1])) {
-      return category[0];
+      return category[0] + '/';
     }
   }
   return '';
@@ -91,7 +92,7 @@ const resolveLink = (link, sourcePage, linkPrefix, categories, pages) => {
   }
   const prefix = getCategoryPrefix(page, categories);
   const cleanPage = simplifyName(page, categories);
-  const absLink = '/' + (prefix ? prefix + '/' + cleanPage : cleanPage) + '.adoc';
+  const absLink = '/' + prefix + cleanPage + '.adoc';
   return absLink;
 };
 
@@ -142,7 +143,7 @@ const configRef = {
   // 'Reference:GeoGebra_Installation',
   // 'Reference:GeoGebra_Mass_Installation',
   // 'Reference:XML_Glossary',
-  'Reference:Material_Embedding_(Iframe)'
+    'Reference:Material_Embedding_(Iframe)',
   ],
 };
 
@@ -154,6 +155,19 @@ const api = config.api;
 const linkPrefix = config.linkPrefix;
 const outputDir = config.outputDir;
 
+const pageToId = {};
+const idToEnglishLink = {};
+const wikiId = linkPrefix.replace('/', 'gg');
+for (const iwItem of interwiki) {
+  if (iwItem.ips_site_id == 'ggen') {
+    const normalized = iwItem.ips_site_page.replaceAll(' ', '_');
+    idToEnglishLink[iwItem.ips_item_id] = getCategoryPrefix(normalized, configEn.categories) +
+        simplifyName(normalized, configEn.categories);
+  }
+  if (iwItem.ips_site_id == wikiId) {
+    pageToId[simplifyName(iwItem.ips_site_page, [])] = iwItem.ips_item_id;
+  }
+}
 if (!fs.lstatSync(outputDir).isDirectory()) {
   console.error(`Invalid directory ${outputDir}`);
   process.exit(1);
@@ -208,14 +222,18 @@ while (processed < pages.length) {
     downloadImage(baseUrl + src, `${outputDir}/assets/images/${baseName}`);
   });
   fs.writeFileSync(outHtml, $.html());
-  console.log('  Converting');
+  const pageId = pageToId[simplifyName(page, [])];
+  console.log(`  Converting ${pageId}`);
+  const meta = [idToEnglishLink[pageId] ? `:page-en: ${idToEnglishLink[pageId]}` : null,
+    `ifdef::env-github[:imagesdir: ${linkPrefix}/modules/ROOT/assets/images]`]
+      .filter(Boolean).join('\n');
   exec(`pandoc -f html --columns=120 -t asciidoc '${outHtml}'`, (err, adocContent, stderr) => {
     console.log(stderr.trim());
     const cleanContent = adocContent.replaceAll('link:/', 'xref:/')
-        .replaceAll('  +\n\n[', '\n[')
+        .replaceAll('  +\n', '')
         .replace(/\[(\w+)\]\n\n==/g, '[$1]\n==');
-    fs.writeFileSync(`${outputDir}/pages/${outputCategoryDir}/${out}.adoc`,
-        `= ${page.replaceAll('_', ' ')}\n\n${cleanContent}`);
+    fs.writeFileSync(`${outputDir}/pages/${outputCategoryDir}${out}.adoc`,
+        `= ${page.replaceAll('_', ' ')}\n${meta}\n\n${cleanContent}`);
     fs.unlinkSync(outHtml);
   });
 }
