@@ -148,7 +148,7 @@ while (processed < pages.length) {
   }
   console.log(`Getting '${page}' (${processed} / ${pages.length})`);
   const outputCategoryDir = getCategoryPrefix(page, categories);
-  const url = `${api}?action=parse&page=${page}&format=json`;
+  const url = `${api}?action=parse&page=${encodeURIComponent(page)}&format=json`;
   const parsed = (await axiosGet(url)).data.parse;
   if (!parsed) {
     console.log('  Fetch failed');
