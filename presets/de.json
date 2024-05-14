@@ -1,0 +1,13 @@
+{
+  "categories": [["commands", "^(.*)_\\(Befehl\\)$"],
+    ["commands", "^(.*_\\(Befehle\\))$"],
+    ["tools", "^(.*)_\\(Werkzeug\\)$"],
+    ["tools", "^(Werkzeuge_für_.*)$"]
+  ],
+  "api": "https://wiki.geogebra.org/s/de/api.php",
+  "baseUrl": "https://wiki.geogebra.org",
+  "linkPrefix": "/de",
+  "headings": ["Anmerkung", "Beispiel"],
+  "outputDir": "../manual/de/modules/ROOT",
+  "importCategories": ["Category:Befehle", "Category:Werkzeuge"]
+}

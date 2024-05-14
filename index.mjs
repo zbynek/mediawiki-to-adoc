@@ -70,7 +70,7 @@ const getCategoryPrefix = (page, categories) => {
 };
 
 const simplifyName = (page, categories) => {
-  const specialChars = /[-\/,_\s.]+/g;
+  const specialChars = /[-\/,_\s.&]+/g;
   for (const category of categories) {
     if (page.match(category[1])) {
       return page.replace(category[1], '$1').replace(specialChars, '_');
@@ -84,8 +84,8 @@ const resolveLink = (link, sourcePage, linkPrefix, categories, pages) => {
     console.log(`  Not an internal link: '${link}'`);
     return link;
   }
-  const page = link.replace(linkPrefix, '').replace(/^\//, '')
-      .trim().replaceAll(' ', '_').split('#')[0];
+  const page = decodeURIComponent(link.replace(linkPrefix, '').replace(/^\//, '')
+      .trim().replaceAll(' ', '_').split('#')[0]);
   if (page && pages.indexOf(page) == -1 && !page.includes('.php') && !page.includes(':')) {
     console.log('  Adding to queue: ' + page);
     pages.push(page, '');
@@ -97,59 +97,10 @@ const resolveLink = (link, sourcePage, linkPrefix, categories, pages) => {
 };
 
 
-const configIt = {
-  categories: [['commands', /^Comando_(.*)$/],
-    ['commands', /^(Comandi_.*)$/],
-    ['tools', /^Strumento_(.*)$/],
-    ['tools', /^(Strumenti_.*)$/],
-  ],
-  api: 'https://wiki.geogebra.org/s/it/api.php',
-  baseUrl: 'https://wiki.geogebra.org',
-  linkPrefix: '/it',
-  headings: ['Note', 'Esempio'],
-  outputDir: '../manual/it/modules/ROOT',
-  importCategories: ['Category:Comandi', 'Category:Strumenti'],
-};
-
-const configEn = {
-  categories: [
-    ['commands', /^(.*)_Command$/],
-    ['commands', /^(.*_Commands)$/],
-    ['tools', /^(.*)_Tool$/],
-    ['tools', /(.*_Tools)$/],
-  ],
-  api: 'https://wiki.geogebra.org/s/en/api.php',
-  baseUrl: 'https://wiki.geogebra.org',
-  linkPrefix: '/en',
-  headings: ['Note', 'Example'],
-  outputDir: '../manual/en/modules/ROOT',
-  importCategories: ['Category:Commands', 'Category:Tools'],
-};
-
-const configRef = {
-  api: 'https://wiki.geogebra.org/s/en/api.php',
-  baseUrl: 'https://wiki.geogebra.org',
-  linkPrefix: '/en',
-  headings: ['Note', 'Example'],
-  outputDir: '../integration/reference/modules/ROOT',
-  pages: [
-  // 'Reference:GeoGebra_App_Parameters', 'Reference:GeoGebra_Apps_Embedding',
-  // 'Reference:GeoGebra_Apps_API', 'Reference:Toolbar',
-  // 'Reference:File_Format',
-  // 'Reference:XML_tags_in_geogebra.xml',
-  // 'Reference:XML_tags_in_geogebra_macro.xml',
-  // 'Reference:Common_XML_tags_and_types'
-  // 'Reference:Command_Line_Arguments',
-  // 'Reference:GeoGebra_Installation',
-  // 'Reference:GeoGebra_Mass_Installation',
-  // 'Reference:XML_Glossary',
-    'Reference:Material_Embedding_(Iframe)',
-  ],
-};
-
-const config = process.argv[2] == 'ref' ? configRef :
-(process.argv[2] == 'it' ? configIt : configEn);
+const configEn = JSON.parse(fs.readFileSync(`presets/en.json`));
+const config = JSON.parse(fs.readFileSync(`presets/${process.argv[2]}.json`));
 const categories = config.categories || [];
+categories.forEach(cat => {cat[1] = new RegExp(cat[1])});
 const baseUrl = config.baseUrl;
 const api = config.api;
 const linkPrefix = config.linkPrefix;
@@ -167,10 +118,6 @@ for (const iwItem of interwiki) {
   if (iwItem.ips_site_id == wikiId) {
     pageToId[simplifyName(iwItem.ips_site_page, [])] = iwItem.ips_item_id;
   }
-}
-if (!fs.lstatSync(outputDir).isDirectory()) {
-  console.error(`Invalid directory ${outputDir}`);
-  process.exit(1);
 }
 mkdirp(`${outputDir}/pages/`);
 categories.forEach((cat) => mkdirp(`${outputDir}/pages/${cat[0]}`));

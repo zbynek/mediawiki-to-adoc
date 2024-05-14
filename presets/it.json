@@ -1,0 +1,13 @@
+{
+  "categories": [["commands", "^Comando_(.*)$"],
+    ["commands", "^(Comandi_.*)$"],
+    ["tools", "^Strumento_(.*)$"],
+    ["tools", "^(Strumenti_.*)$"]
+  ],
+  "api": "https://wiki.geogebra.org/s/it/api.php",
+  "baseUrl": "https://wiki.geogebra.org",
+  "linkPrefix": "/it",
+  "headings": ["Note", "Esempio"],
+  "outputDir": "../manual/it/modules/ROOT",
+  "importCategories": ["Category:Comandi", "Category:Strumenti"]
+}
