@@ -1,0 +1,14 @@
+{
+  "categories": [
+    ["commands", "^(.*)_Command$"],
+    ["commands", "^(.*_Commands)$"],
+    ["tools", "^(.*)_Tool$"],
+    ["tools", "(.*_Tools)$"]
+  ],
+  "api": "https://wiki.geogebra.org/s/hr/api.php",
+  "baseUrl": "https://wiki.geogebra.org",
+  "linkPrefix": "/hr",
+  "headings": ["Note", "Example"],
+  "outputDir": "../manual/hr/modules/ROOT",
+  "importCategories": ["Category:Commands", "Category:Tools"]
+}
