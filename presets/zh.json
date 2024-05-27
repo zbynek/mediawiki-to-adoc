@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^undefined$"
+    ],
+    [
+      "commands",
+      "^(undefined)$"
+    ],
+    [
+      "tools",
+      "^undefined$"
+    ],
+    [
+      "tools",
+      "^(undefined)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/zh/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/zh",
-  "headings": ["Note", "Example"],
+  "headings": [
+    null,
+    null
+  ],
   "outputDir": "../manual/zh/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:undefined",
+    "Category:undefined"
+  ]
 }

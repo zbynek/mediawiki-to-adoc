@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) Kommando$"
+    ],
+    [
+      "commands",
+      "^(.* Kommandoer)$"
+    ],
+    [
+      "tools",
+      "^(.*) Verktøy$"
+    ],
+    [
+      "tools",
+      "^(.* Verktøy)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/nb/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/nb",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Notat",
+    "Eksempel"
+  ],
   "outputDir": "../manual/nb/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Kommandoer",
+    "Category:Verktøy"
+  ]
 }

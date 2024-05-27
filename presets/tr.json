@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) Komutu$"
+    ],
+    [
+      "commands",
+      "^(.* Komutları)$"
+    ],
+    [
+      "tools",
+      "^(.*) Aracı$"
+    ],
+    [
+      "tools",
+      "^(.* Araçları)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/tr/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/tr",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Not",
+    "Örnek"
+  ],
   "outputDir": "../manual/tr/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Komutlar",
+    "Category:Araçlar"
+  ]
 }

@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^Příkaz (.*)$"
+    ],
+    [
+      "commands",
+      "^(.* \\(Příkazy\\))$"
+    ],
+    [
+      "tools",
+      "^Nástroj (.*)$"
+    ],
+    [
+      "tools",
+      "^(.* Nástroje)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/cs/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/cs",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Poznámka",
+    "Příklad"
+  ],
   "outputDir": "../manual/cs/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Příkazy",
+    "Category:Nástroje"
+  ]
 }

@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^‏(.*) \\(פקודה\\)‏$"
+    ],
+    [
+      "commands",
+      "^(פקודות .*‏)$"
+    ],
+    [
+      "tools",
+      "^כלי (.*)$"
+    ],
+    [
+      "tools",
+      "^(כלי .*)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/he/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/he",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "הערה",
+    "דוגמה"
+  ],
   "outputDir": "../manual/he/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:פקודות",
+    "Category:כלים"
+  ]
 }

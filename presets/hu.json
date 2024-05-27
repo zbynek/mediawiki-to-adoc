@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) parancs$"
+    ],
+    [
+      "commands",
+      "^(.* parancsok)$"
+    ],
+    [
+      "tools",
+      "^(.*) eszköz$"
+    ],
+    [
+      "tools",
+      "^(.* eszközök)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/hu/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/hu",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Megjegyzés",
+    "Példa"
+  ],
   "outputDir": "../manual/hu/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Parancsok",
+    "Category:Eszközök"
+  ]
 }

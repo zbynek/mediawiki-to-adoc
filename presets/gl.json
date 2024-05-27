@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) \\(Comando\\)$"
+    ],
+    [
+      "commands",
+      "^(Comandos do tipo .*)$"
+    ],
+    [
+      "tools",
+      "^Ferramenta (.*)$"
+    ],
+    [
+      "tools",
+      "^(Ferramentas .*)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/gl/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/gl",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Nota",
+    "Exemplo"
+  ],
   "outputDir": "../manual/gl/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Comandos",
+    "Category:Ferramentas"
+  ]
 }

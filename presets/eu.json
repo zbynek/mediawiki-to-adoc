@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) agindua$"
+    ],
+    [
+      "commands",
+      "^(.* aginduak)$"
+    ],
+    [
+      "tools",
+      "^(.*) tresna$"
+    ],
+    [
+      "tools",
+      "^(.* tresnak)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/eu/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/eu",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Oharra",
+    "Adibidea"
+  ],
   "outputDir": "../manual/eu/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Komandoak",
+    "Category:Tresnak"
+  ]
 }

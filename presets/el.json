@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) Εντολή$"
+    ],
+    [
+      "commands",
+      "^(.* Εντολές)$"
+    ],
+    [
+      "tools",
+      "^Εργαλείο (.*)$"
+    ],
+    [
+      "tools",
+      "^(Εργαλεία .*)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/el/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/el",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Σημείωση",
+    "Παράδειγμα"
+  ],
   "outputDir": "../manual/el/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Εντολές",
+    "Category:Εργαλεία"
+  ]
 }

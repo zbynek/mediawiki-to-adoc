@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) käsk$"
+    ],
+    [
+      "commands",
+      "^(.* käsud)$"
+    ],
+    [
+      "tools",
+      "^(.*) tööriist$"
+    ],
+    [
+      "tools",
+      "^(.* tööriistad)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/et/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/et",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Märkus",
+    "Näide"
+  ],
   "outputDir": "../manual/et/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:undefined",
+    "Category:Tööriistad"
+  ]
 }

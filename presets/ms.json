@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) Perintah$"
+    ],
+    [
+      "commands",
+      "^(Perintah-perintah .*)$"
+    ],
+    [
+      "tools",
+      "^Alat (.*)$"
+    ],
+    [
+      "tools",
+      "^(Alatan .*)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/ms/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/ms",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Nota",
+    "Contoh"
+  ],
   "outputDir": "../manual/ms/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:undefined",
+    "Category:Alatan"
+  ]
 }

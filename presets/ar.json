@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^الأمر (.*)$"
+    ],
+    [
+      "commands",
+      "^(الأوامر .*)$"
+    ],
+    [
+      "tools",
+      "^أداة (.*)$"
+    ],
+    [
+      "tools",
+      "^(أدوات  .*)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/ar/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/ar",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "ملاحظة",
+    "مثال"
+  ],
   "outputDir": "../manual/ar/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:أوامر",
+    "Category:أدوات"
+  ]
 }

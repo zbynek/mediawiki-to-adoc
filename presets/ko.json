@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) 명령$"
+    ],
+    [
+      "commands",
+      "^(.* 명령)$"
+    ],
+    [
+      "tools",
+      "^(.*) 도구$"
+    ],
+    [
+      "tools",
+      "^(.* 도구)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/ko/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/ko",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "노트",
+    "예"
+  ],
   "outputDir": "../manual/ko/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:명령",
+    "Category:도구"
+  ]
 }

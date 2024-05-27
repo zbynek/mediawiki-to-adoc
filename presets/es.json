@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^Comando de tipo (.*)$"
+    ],
+    [
+      "commands",
+      "^(Comandos de tipo .*)$"
+    ],
+    [
+      "tools",
+      "^Herramienta de (.*)$"
+    ],
+    [
+      "tools",
+      "^(Herramientas de .*)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/es/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/es",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Nota",
+    "Ejemplo"
+  ],
   "outputDir": "../manual/es/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Comandos",
+    "Category:Herramientas"
+  ]
 }
