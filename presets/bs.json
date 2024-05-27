@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) naredba$"
+    ],
+    [
+      "commands",
+      "^(.* naredbe)$"
+    ],
+    [
+      "tools",
+      "^(.*) alat$"
+    ],
+    [
+      "tools",
+      "^(.* alati)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/bs/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/bs",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Napomena",
+    "Primjer"
+  ],
   "outputDir": "../manual/bs/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:naredbe",
+    "Category:Alati"
+  ]
 }

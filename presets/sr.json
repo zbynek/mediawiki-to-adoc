@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) naredba$"
+    ],
+    [
+      "commands",
+      "^(.* naredbi)$"
+    ],
+    [
+      "tools",
+      "^(.*) alat$"
+    ],
+    [
+      "tools",
+      "^(.* alati)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/sr/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/sr",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Napomena",
+    "Primer"
+  ],
   "outputDir": "../manual/sr/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:undefined",
+    "Category:Alati"
+  ]
 }

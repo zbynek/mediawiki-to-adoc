@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) ukaz$"
+    ],
+    [
+      "commands",
+      "^(Vzorci ukazov)$"
+    ],
+    [
+      "tools",
+      "^%= orodje$"
+    ],
+    [
+      "tools",
+      "^(.* Orodja)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/sl/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/sl",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Opomba",
+    "Primer"
+  ],
   "outputDir": "../manual/sl/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Ukazi",
+    "Category:Orodja"
+  ]
 }

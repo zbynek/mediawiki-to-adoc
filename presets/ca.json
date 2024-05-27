@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) Comandament$"
+    ],
+    [
+      "commands",
+      "^(.* Comandaments)$"
+    ],
+    [
+      "tools",
+      "^Eina (.*)$"
+    ],
+    [
+      "tools",
+      "^(Eines .*)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/ca/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/ca",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Nota",
+    "Exemple"
+  ],
   "outputDir": "../manual/ca/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Comandaments",
+    "Category:Eines"
+  ]
 }

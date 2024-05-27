@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) príkaz$"
+    ],
+    [
+      "commands",
+      "^(.* príkazy)$"
+    ],
+    [
+      "tools",
+      "^(.*) nástroj$"
+    ],
+    [
+      "tools",
+      "^(.* nástroj)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/sk/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/sk",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Poznámka",
+    "Príklad"
+  ],
   "outputDir": "../manual/sk/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:undefined",
+    "Category:Nástroje"
+  ]
 }

@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) कमांड$"
+    ],
+    [
+      "commands",
+      "^(.* कमांड)$"
+    ],
+    [
+      "tools",
+      "^(.*) टूल$"
+    ],
+    [
+      "tools",
+      "^(.* टूल)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/hi/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/hi",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "नोट",
+    "उदाहरण"
+  ],
   "outputDir": "../manual/hi/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:undefined",
+    "Category:टूल"
+  ]
 }

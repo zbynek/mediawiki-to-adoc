@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) perintah$"
+    ],
+    [
+      "commands",
+      "^(.* Perintah)$"
+    ],
+    [
+      "tools",
+      "^(.*) Peralatan$"
+    ],
+    [
+      "tools",
+      "^(.* Peralatan)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/id/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/id",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Catatan",
+    "Contoh"
+  ],
   "outputDir": "../manual/id/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:undefined",
+    "Category:Peralatan"
+  ]
 }

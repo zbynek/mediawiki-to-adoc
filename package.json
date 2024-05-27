@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/zbynek/mediawiki-to-adoc#readme",
   "dependencies": {
+    "@js.properties/properties": "^0.5.4",
     "axios": "^1.6.7",
     "axios-retry": "^4.1.0",
     "cheerio": "^1.0.0-rc.12",

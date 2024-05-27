@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) Commando$"
+    ],
+    [
+      "commands",
+      "^(.* Commando's)$"
+    ],
+    [
+      "tools",
+      "^(.*) Knop$"
+    ],
+    [
+      "tools",
+      "^(.* Knoppen)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/nl/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/nl",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Nota",
+    "Voorbeeld"
+  ],
   "outputDir": "../manual/nl/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Commando's",
+    "Category:Knoppen"
+  ]
 }

@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*)-kommandot$"
+    ],
+    [
+      "commands",
+      "^(.*-kommandona)$"
+    ],
+    [
+      "tools",
+      "^(.*)-verktyget$"
+    ],
+    [
+      "tools",
+      "^(.*-verktyg)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/sv/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/sv",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Anteckning",
+    "Exempel"
+  ],
   "outputDir": "../manual/sv/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Kommandon",
+    "Category:Verktyg"
+  ]
 }

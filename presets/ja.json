@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) コマンド$"
+    ],
+    [
+      "commands",
+      "^(.* コマンド)$"
+    ],
+    [
+      "tools",
+      "^(.*) ツール$"
+    ],
+    [
+      "tools",
+      "^(.* ツール)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/ja/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/ja",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "メモ",
+    "例"
+  ],
   "outputDir": "../manual/ja/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:コマンド",
+    "Category:ツール"
+  ]
 }

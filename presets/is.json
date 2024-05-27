@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) \\(skipun\\)$"
+    ],
+    [
+      "commands",
+      "^(.* \\(skipanir\\))$"
+    ],
+    [
+      "tools",
+      "^(.*) \\(verkfæri\\)$"
+    ],
+    [
+      "tools",
+      "^(.* \\(verkfæri\\))$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/is/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/is",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Athugasemd",
+    "Sýnidæmi"
+  ],
   "outputDir": "../manual/is/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Skipanir",
+    "Category:Verkfæri"
+  ]
 }

@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) komento$"
+    ],
+    [
+      "commands",
+      "^(.* komentoa)$"
+    ],
+    [
+      "tools",
+      "^(.*) työkalu$"
+    ],
+    [
+      "tools",
+      "^(.* Työkalut)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/fi/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/fi",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Huomautus",
+    "Esimerkki"
+  ],
   "outputDir": "../manual/fi/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:Komennot",
+    "Category:Työkalut"
+  ]
 }

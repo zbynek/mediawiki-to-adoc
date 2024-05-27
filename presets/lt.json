@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) komanda$"
+    ],
+    [
+      "commands",
+      "^(.* komandos)$"
+    ],
+    [
+      "tools",
+      "^(.*) įrankis$"
+    ],
+    [
+      "tools",
+      "^(.* įrankiai)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/lt/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/lt",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Užrašai",
+    "Pavizdys"
+  ],
   "outputDir": "../manual/lt/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:undefined",
+    "Category:Įrankiai"
+  ]
 }

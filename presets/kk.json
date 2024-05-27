@@ -1,14 +1,32 @@
 {
   "categories": [
-    ["commands", "^(.*)_Command$"],
-    ["commands", "^(.*_Commands)$"],
-    ["tools", "^(.*)_Tool$"],
-    ["tools", "(.*_Tools)$"]
+    [
+      "commands",
+      "^(.*) команадсы$"
+    ],
+    [
+      "commands",
+      "^(.* командалары)$"
+    ],
+    [
+      "tools",
+      "^(.*) құралы$"
+    ],
+    [
+      "tools",
+      "^(.* құралдары)$"
+    ]
   ],
   "api": "https://wiki.geogebra.org/s/kk/api.php",
   "baseUrl": "https://wiki.geogebra.org",
   "linkPrefix": "/kk",
-  "headings": ["Note", "Example"],
+  "headings": [
+    "Ескерту",
+    "Мысал"
+  ],
   "outputDir": "../manual/kk/modules/ROOT",
-  "importCategories": ["Category:Commands", "Category:Tools"]
+  "importCategories": [
+    "Category:undefined",
+    "Category:Құралдар"
+  ]
 }
