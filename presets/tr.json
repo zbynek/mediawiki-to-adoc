@@ -2,7 +2,7 @@
   "categories": [
     [
       "commands",
-      "^(.*) Komutu$"
+      "^(.*) Komut$"
     ],
     [
       "commands",
@@ -10,7 +10,7 @@
     ],
     [
       "tools",
-      "^(.*) Aracı$"
+      "^(.*) Araç$"
     ],
     [
       "tools",

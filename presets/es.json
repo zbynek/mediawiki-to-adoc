@@ -2,11 +2,11 @@
   "categories": [
     [
       "commands",
-      "^Comando de tipo (.*)$"
+      "^Comando (.*)$"
     ],
     [
       "commands",
-      "^(Comandos de tipo .*)$"
+      "^(Comandos .*)$"
     ],
     [
       "tools",

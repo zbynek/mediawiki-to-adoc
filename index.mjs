@@ -38,7 +38,7 @@ const downloadImage = async (url, filename) => {
 };
 
 const htmlTransforms = [
-  ($) => $('.infobox,.mw-editsection,br').remove(),
+  ($) => $('.infobox,.mw-editsection,br,.box.info').remove(),
   ($) => $('.toc').replaceWith('<div>:toc:</div>'),
   ($) => $('.block-contents,.block-content,.mw-headline').attr('class', ''),
   ($) => $('[data-latex]').each(function() {
@@ -51,13 +51,26 @@ const htmlTransforms = [
     $(this).text() || $(this).remove();
     $(this).attr('id', '');
   }),
-  ($) => $('a img').each(function() {
-    if ($(this).parent().attr('href').includes('File:')) {
+  ($) => $('a img').each(function() { // link to File: namespace, different in each language
+    if ($(this).parent().attr('href').replace(/https?:/,'').includes(':')) {
       $(this).parent().replaceWith($(this));
     }
   }),
   ($, config) => fixAdmonitions($, '.block-note', 'NOTE', config.headings),
   ($, config) => fixAdmonitions($, '.example', 'EXAMPLE', config.headings),
+  ($) => $('table.mbox').each(function() {
+      const block = $(this);
+      const parent = block.parent();
+      if (parent[0].name == 'dd') {
+        parent.parent().after(block);
+      }
+  }),
+  ($) => $('.mbox-text').each(function() {
+       if ($(this).text().includes('not yet translated')) {
+           $(this).text("Some content was not yet translated.")
+       }
+  }),
+
 ];
 
 const getCategoryPrefix = (page, categories) => {
@@ -100,7 +113,8 @@ const resolveLink = (link, sourcePage, linkPrefix, categories, pages) => {
 const configEn = JSON.parse(fs.readFileSync(`presets/en.json`));
 const config = JSON.parse(fs.readFileSync(`presets/${process.argv[2]}.json`));
 const categories = config.categories || [];
-categories.forEach(cat => {cat[1] = new RegExp(cat[1])});
+categories.forEach(cat => {cat[1] = new RegExp(cat[1].replaceAll(' ', '_'))});
+configEn.categories.forEach(cat => {cat[1] = new RegExp(cat[1].replaceAll(' ', '_'))});
 const baseUrl = config.baseUrl;
 const api = config.api;
 const linkPrefix = config.linkPrefix;
