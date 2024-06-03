@@ -83,7 +83,7 @@ const getCategoryPrefix = (page, categories) => {
 };
 
 const simplifyName = (page, categories) => {
-  const specialChars = /[-\/,_\s.&]+/g;
+  const specialChars = /[-\/,_\s.&']+/g;
   for (const category of categories) {
     if (page.match(category[1])) {
       return page.replace(category[1], '$1').replace(specialChars, '_');
@@ -94,6 +94,9 @@ const simplifyName = (page, categories) => {
 
 const resolveLink = (link, sourcePage, linkPrefix, categories, pages) => {
   if (!link || link.includes('//')) {
+    if (link && link.startsWith('http://en.wikipedia.org/')) {
+        return link.replace('http:', 'https:');
+    }
     console.log(`  Not an internal link: '${link}'`);
     return link;
   }
