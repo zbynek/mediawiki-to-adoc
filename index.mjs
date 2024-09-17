@@ -141,21 +141,37 @@ categories.forEach((cat) => mkdirp(`${outputDir}/pages/${cat[0]}`));
 mkdirp(`${outputDir}/assets/images/`);
 
 const pages = config.pages || [];
-for (const cat of config.importCategories || []) {
+if (config.restricted) {
+  for (const cat of config.importCategories || []) {
+    let continuation = '';
+    do {
+      const pageList = (await axiosGet(`${api}?action=query&list=categorymembers&cmtitle=` +
+      `${cat}&cmlimit=500&format=json${continuation}`)).data;
+      continuation = '';
+      for (const [key, val] of Object.entries(pageList['continue'] || {})) {
+        continuation += `&${key}=${val}`;
+      }
+      for (const page of pageList.query.categorymembers) {
+        pages.push(page.title.replaceAll(' ', '_'));
+      }
+    } while (continuation);
+  }
+} else {
   let continuation = '';
   do {
-    const pageList = (await axiosGet(`${api}?action=query&list=categorymembers&cmtitle=` +
-    `${cat}&cmlimit=500&format=json${continuation}`)).data;
+    const pageList = (await axiosGet(`${api}?action=query&generator=allpages&prop=info&format=json${continuation}`)).data;
     continuation = '';
     for (const [key, val] of Object.entries(pageList['continue'] || {})) {
       continuation += `&${key}=${val}`;
     }
-    for (const page of pageList.query.categorymembers) {
-      pages.push(page.title.replaceAll(' ', '_'));
+    for (const page of Object.values(pageList.query.pages)) {
+      if (typeof page.redirect == "undefined") {
+        pages.push(page.title.replaceAll(' ', '_'));
+      }
     }
   } while (continuation);
 }
-config.pages;
+
 let processed = 0;
 while (processed < pages.length) {
   const page = pages[processed];
@@ -168,7 +184,7 @@ while (processed < pages.length) {
   const url = `${api}?action=parse&page=${encodeURIComponent(page)}&format=json`;
   const parsed = (await axiosGet(url)).data.parse;
   if (!parsed) {
-    console.log('  Fetch failed');
+    console.log(`  Fetch failed: ${url}`);
     continue;
   }
   const content = parsed.text['*'];
@@ -185,9 +201,26 @@ while (processed < pages.length) {
     $(this).attr('src', `${baseName}`);
     downloadImage(baseUrl + src, `${outputDir}/assets/images/${baseName}`);
   });
-  fs.writeFileSync(outHtml, $.html());
+  const fullHtml = $.html();
+  let partial = false;
+  $('.mbox-text').each(function() {
+         if ($(this).text().includes('not yet translated')) {
+             partial = true;
+             $(this).remove()
+         }
+    })
+  $("dt,h2").remove();
+  if (partial) {
+     $("li a").remove();
+  }
+  const translatedText = $.text().trim();
+  if (!translatedText.length) {
+    console.log("  Skipping empty doc");
+    continue;
+  }
+    fs.writeFileSync(outHtml, fullHtml);
   const pageId = pageToId[simplifyName(page, [])];
-  console.log(`  Converting ${pageId}`);
+  console.log(`  Converting ${translatedText.length} characters`);
   const meta = [idToEnglishLink[pageId] ? `:page-en: ${idToEnglishLink[pageId]}` : null,
     `ifdef::env-github[:imagesdir: ${linkPrefix}/modules/ROOT/assets/images]`]
       .filter(Boolean).join('\n');
