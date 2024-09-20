@@ -2,19 +2,19 @@
   "categories": [
     [
       "commands",
-      "^undefined$"
+      "^(.*) 指令$"
     ],
     [
       "commands",
-      "^(undefined)$"
+      "^(.* 指令)$"
     ],
     [
       "tools",
-      "^undefined$"
+      "^(.*) 工具$"
     ],
     [
       "tools",
-      "^(undefined)$"
+      "^(.* 工具)$"
     ]
   ],
   "api": "https://wiki.geogebra.org/s/zh/api.php",

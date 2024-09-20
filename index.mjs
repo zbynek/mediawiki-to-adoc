@@ -52,23 +52,23 @@ const htmlTransforms = [
     $(this).attr('id', '');
   }),
   ($) => $('a img').each(function() { // link to File: namespace, different in each language
-    if ($(this).parent().attr('href').replace(/https?:/,'').includes(':')) {
+    if ($(this).parent().attr('href').replace(/https?:/, '').includes(':')) {
       $(this).parent().replaceWith($(this));
     }
   }),
   ($, config) => fixAdmonitions($, '.block-note', 'NOTE', config.headings),
   ($, config) => fixAdmonitions($, '.example', 'EXAMPLE', config.headings),
   ($) => $('table.mbox').each(function() {
-      const block = $(this);
-      const parent = block.parent();
-      if (parent[0].name == 'dd') {
-        parent.parent().after(block);
-      }
+    const block = $(this);
+    const parent = block.parent();
+    if (parent[0].name == 'dd') {
+      parent.parent().after(block);
+    }
   }),
   ($) => $('.mbox-text').each(function() {
-       if ($(this).text().includes('not yet translated')) {
-           $(this).text("Some content was not yet translated.")
-       }
+    if ($(this).text().includes('not yet translated')) {
+      $(this).text('Some content was not yet translated.');
+    }
   }),
 
 ];
@@ -95,7 +95,7 @@ const simplifyName = (page, categories) => {
 const resolveLink = (link, sourcePage, linkPrefix, categories, pages) => {
   if (!link || link.includes('//')) {
     if (link && link.startsWith('http://en.wikipedia.org/')) {
-        return link.replace('http:', 'https:');
+      return link.replace('http:', 'https:');
     }
     console.log(`  Not an internal link: '${link}'`);
     return link;
@@ -116,8 +116,12 @@ const resolveLink = (link, sourcePage, linkPrefix, categories, pages) => {
 const configEn = JSON.parse(fs.readFileSync(`presets/en.json`));
 const config = JSON.parse(fs.readFileSync(`presets/${process.argv[2]}.json`));
 const categories = config.categories || [];
-categories.forEach(cat => {cat[1] = new RegExp(cat[1].replaceAll(' ', '_'))});
-configEn.categories.forEach(cat => {cat[1] = new RegExp(cat[1].replaceAll(' ', '_'))});
+categories.forEach((cat) => {
+  cat[1] = new RegExp(cat[1].replaceAll(' ', '_'));
+});
+configEn.categories.forEach((cat) => {
+  cat[1] = new RegExp(cat[1].replaceAll(' ', '_'));
+});
 const baseUrl = config.baseUrl;
 const api = config.api;
 const linkPrefix = config.linkPrefix;
@@ -165,7 +169,7 @@ if (config.restricted) {
       continuation += `&${key}=${val}`;
     }
     for (const page of Object.values(pageList.query.pages)) {
-      if (typeof page.redirect == "undefined") {
+      if (typeof page.redirect == 'undefined') {
         pages.push(page.title.replaceAll(' ', '_'));
       }
     }
@@ -204,21 +208,21 @@ while (processed < pages.length) {
   const fullHtml = $.html();
   let partial = false;
   $('.mbox-text').each(function() {
-         if ($(this).text().includes('not yet translated')) {
-             partial = true;
-             $(this).remove();
-         }
-    })
-  $("dt,h2").remove();
+    if ($(this).text().includes('not yet translated')) {
+      partial = true;
+      $(this).remove();
+    }
+  });
+  $('dt,h2').remove();
   if (partial) {
-     $("li a").remove();
+    $('li a').remove();
   }
   const translatedText = $.text().trim();
   if (!translatedText.length) {
-    console.log("  Skipping empty doc");
+    console.log('  Skipping empty doc');
     continue;
   }
-    fs.writeFileSync(outHtml, fullHtml);
+  fs.writeFileSync(outHtml, fullHtml);
   const pageId = pageToId[simplifyName(page, [])];
   console.log(`  Converting ${translatedText.length} characters`);
   const meta = [idToEnglishLink[pageId] ? `:page-en: ${idToEnglishLink[pageId]}` : null,

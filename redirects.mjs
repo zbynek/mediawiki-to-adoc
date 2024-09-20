@@ -1,17 +1,130 @@
 import * as fs from 'fs';
 
-const files = fs.readdirSync("presets");
+const files = fs.readdirSync('presets');
 
-files.filter(f=>f.includes(".json")).forEach((file) => {
-
-  const config = JSON.parse(fs.readFileSync("presets/"+file));
+const renamedTools = [
+  ['Join', 'Line'],
+  ['Parallel', 'Parallel Line'],
+  ['Orthogonal', 'Perpendicular Line'],
+  ['LineBisector', 'Perpendicular Bisector'],
+  ['AngularBisector', 'Angle Bisector'],
+  ['Circle2', 'Circle with Center through Point'],
+  ['Circle3', 'Circle through 3 Points'],
+  ['Conic5', 'Conic through 5 Points'],
+  ['Tangent', 'Tangents'],
+  ['Midpoint', 'Midpoint or Center'],
+  ['CircleArc3', 'Circular Arc'],
+  ['CircleSector3', 'Circular Sector'],
+  ['CircumcircleArc3', 'Circumcircular Arc'],
+  ['CircumcircleSector3', 'Circumcircular Sector'],
+  ['Semicircle', 'Semicircle through 2 Points'],
+  ['ShowHideObject', 'Show / Hide Object'],
+  ['ShowHideLabel', 'Show / Hide Label'],
+  ['MirrorAtPoint', 'Reflect about Point'],
+  ['MirrorAtLine', 'Reflect about Line'],
+  ['TranslateByVector', 'Translate by Vector'],
+  ['RotateByAngle', 'Rotate around Point'],
+  ['DilateFromPoint', 'Dilate from Point'],
+  ['CirclePointRadius', 'Circle with Center and Radius'],
+  ['CopyVisualStyle', 'Copy Visual Style'],
+  ['VectorFromPoint', 'Vector from Point'],
+  ['Distance', 'Distance or Length'],
+  ['MoveRotate', 'Move around Point'],
+  ['TranslateView', 'Move Graphics View'],
+  ['ZoomIn', 'Zoom In'],
+  ['ZoomOut', 'Zoom Out'],
+  ['Select', 'Select Object'],
+  ['PolarDiameter', 'Polar or Diameter Line'],
+  ['SegmentFixed', 'Segment with Given Length'],
+  ['AngleFixed', 'Angle with Given Size'],
+  ['RegularPolygon', 'Regular Polygon'],
+  ['ShowCheckBox', 'Check Box'],
+  ['Compasses', 'Compass'],
+  ['MirrorAtCircle', 'Reflect about Circle'],
+  ['Ellipse3', 'Ellipse'],
+  ['Hyperbola3', 'Hyperbola'],
+  ['FitLine', 'Best Fit Line'],
+  ['ButtonAction', 'Button'],
+  ['TextFieldAction', 'Input Box'],
+  ['RigidPolygon', 'Rigid Polygon'],
+  ['PolyLine', 'Polyline'],
+  ['ProbabilityCalculator', 'Probability Calculator'],
+  ['AttachDetachPoint', 'Attach / Detach Point'],
+  ['FunctionInspector', 'Function Inspector'],
+  ['IntersectionCurve', 'Intersect Two Surfaces'],
+  ['VectorPolygon', 'Vector Polygon'],
+  ['CreateListGraphicsView', 'Create List'],
+  ['ComplexNumber', 'Complex Number'],
+  ['FreehandShape', 'Freehand Shape'],
+  ['PointOnObject', 'Point on Object'],
+  ['ViewInFrontOf', 'View in front of'],
+  ['PlaneThreePoint', 'Plane through 3 Points'],
+  ['OrthogonalPlane', 'Perpendicular Plane'],
+  ['ParallelPlane', 'Parallel Plane'],
+  ['OrthogonalThreeD', 'Perpendicular Line'],
+  ['SpherePointRadius', 'Sphere with Center and Radius'],
+  ['Sphere2', 'Sphere with Center through Point'],
+  ['Extrusion', 'Extrude to Prism or Cylinder'],
+  ['Conify', 'Extrude to Pyramid or Cone'],
+  ['Tetrahedron', 'Regular Tetrahedron'],
+  ['RotateView', 'Rotate 3D Graphics View'],
+  ['CirclePointRadiusDirection', 'Circle with Center, Radius and Direction'],
+  ['CircleAxisPoint', 'Circle with Axis through Point'],
+  ['RotateAroundLine', 'Rotate around Line'],
+  ['MirrorAtPlane', 'Reflect about Plane'],
+  ['KeepInput', 'Keep Input'],
+  ['NSolve', 'Solve Numerically'],
+  ['CreateList', 'Create List'],
+  ['CreateMatrix', 'Create Matrix'],
+  ['CreateListOfPoints', 'Create List of Points'],
+  ['CreateTable', 'Create Table'],
+  ['CreatePolyLine', 'Create Polyline'],
+  ['OneVarStats', 'One Variable Analysis'],
+  ['TwoVarStats', 'Two Variable Regression Analysis'],
+  ['MultiVarStats', 'Multiple Variable Analysis'],
+  ['SumCells', 'Sum'],
+  ['MeanCells', 'Mean'],
+  ['CountCells', 'Count'],
+  ['MinCells', 'Minimum'],
+  ['MaxCells', 'Maximum'],
+  ['SurfaceOfRevolution', 'Surface Of Revolution'],
+  ['ParallelLine', 'Parallel Line'],
+  ['PerpendicularLine', 'Perpendicular Line'],
+  ['PerpendicularBisector', 'Perpendicular Bisector'],
+  ['AngleBisector', 'Angle Bisector'],
+  ['CircularArc', 'Circular Arc'],
+  ['CircularSector', 'Circular Sector'],
+  ['CircumcircularArc', 'Circumcircular Arc'],
+  ['CircumcircularSector', 'Circumcircular Sector'],
+  ['ReflectAboutPoint', 'Reflect about Point'],
+  ['ReflectAboutLine', 'Reflect about Line'],
+  ['RotateAroundPoint', 'Rotate around Point'],
+  ['MoveAroundPoint', 'Move around Point'],
+  ['MoveGraphicsView', 'Move Graphics View'],
+  ['CheckBox', 'Check Box'],
+  ['ReflectAboutCircle', 'Reflect about Circle'],
+  ['InputBox', 'Input Box'],
+  ['IntersectTwoSurfaces', 'Intersect Two Surfaces'],
+  ['FreehandFunction', 'Freehand Function'],
+  ['PerpendicularPlane', 'Perpendicular Plane'],
+  ['ReflectAboutPlane', 'Reflect about Plane'],
+  ['ListOfPoints', 'List of Points']];
+const gh = 'https://geogebra.github.io/docs/manual'
+files.filter((f)=>f.includes('.json')).forEach((file) => {
+  const config = JSON.parse(fs.readFileSync('presets/'+file));
   const lang = file.substring(0, 2);
   if (!config.categories) {
     return;
   }
   for (const cat of config.categories) {
-  console.log(`            rewrite "${cat[1].replace('^','^'+lang+'/')}" https://geogebra.github.io/docs/manual/${lang}/${cat[0]}/$1 break;`);
+    const pattern = cat[1].replace('^', '^/'+lang+'/').replaceAll(' ', '_');
+    console.log(`            rewrite "${pattern}" ${gh}/${lang}/${cat[0]}/$1 break;`);
   }
 
-  console.log(`            rewrite ^${lang}(/.*)?$ https://geogebra.github.io/docs/manual/${lang}/ break;\n`);
+  console.log(`            rewrite "^/${lang}(/.*)?$" ${gh}/${lang}/ break;\n`);
 });
+
+for (const tool of renamedTools) {
+  const toolName = tool[1].replaceAll(' ', '_');
+  console.log(`            rewrite "^help/(.*)/tool/${tool[0]}$" ${gh}/en/tools/${toolName}?redirect=$1 break;`);
+}
