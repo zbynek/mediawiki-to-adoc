@@ -206,7 +206,7 @@ while (processed < pages.length) {
   $('.mbox-text').each(function() {
          if ($(this).text().includes('not yet translated')) {
              partial = true;
-             $(this).remove()
+             $(this).remove();
          }
     })
   $("dt,h2").remove();
